@@ -27,4 +27,31 @@ describe('Marsrover should', () => {
         expect(marsrover.moveWest()).toBe(0);
     })
 
+    // to change the direction of the rover left / right
+
+    test('turn left while the rover is facing north', () => {
+        expect(marsrover.turnLeft()).toBe("W");
+    });
+    test('turn right while the rover is facing north', () => {
+        expect(marsrover.turnRight()).toBe("E");
+    });
+    test('turn left while the rover is facing east', () => {
+        expect(marsrover.turnLeft()).toBe("N");
+    });
+    test('turn right while the rover is facing east', () => {
+        expect(marsrover.turnRight()).toBe("S");
+    })
+    test('turn left while the rover is facing west', () => {
+        expect(marsrover.turnLeft()).toBe("S");
+    });
+    test('turn right while the rover is facing west', () => {
+        expect(marsrover.turnRight()).toBe("N");
+    })
+    test('turn left while the rover is facing south', () => {
+        expect(marsrover.turnLeft()).toBe("E");
+    });
+    test('turn right while the rover is facing south', () => {
+        expect(marsrover.turnRight()).toBe("W");
+    })
+
 });

@@ -23,5 +23,40 @@ Rover.prototype.moveWest = function() {
     return --this.x;
 }
 
-
+Rover.prototype.turnLeft = function() {
+    let direction = this.direction;
+    switch (direction) {
+        case "E":
+            this.direction = "N";
+            break;
+        case "N":
+            this.direction = "W";
+            break;
+        case "W":
+            this.direction = "S";
+            break;
+        case "S":
+            this.direction = "E";
+            break;
+    }
+    return this.direction;
+}
+Rover.prototype.turnRight = function() {
+    let direction = this.direction;
+    switch (direction) {
+        case "E":
+            this.direction = "S";
+            break;
+        case "N":
+            this.direction = "E";
+            break;
+        case "W":
+            this.direction = "N";
+            break;
+        case "S":
+            this.direction = "W";
+            break;
+    }
+    return this.direction;
+}
 module.exports = Rover;

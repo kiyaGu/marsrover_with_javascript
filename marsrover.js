@@ -22,10 +22,11 @@ Rover.prototype.moveSouth = function() {
 Rover.prototype.moveWest = function() {
     return --this.x;
 }
-
+Rover.prototype.changeDirection = function(newDirection) {
+    this.direction = newDirection;
+}
 Rover.prototype.turnLeft = function() {
-    let direction = this.direction;
-    switch (direction) {
+    switch (this.direction) {
         case "E":
             this.direction = "N";
             break;
@@ -59,4 +60,6 @@ Rover.prototype.turnRight = function() {
     }
     return this.direction;
 }
+
+
 module.exports = Rover;

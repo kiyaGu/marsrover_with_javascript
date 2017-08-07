@@ -1,0 +1,22 @@
+{
+    "name": "marsrover_with_javascript",
+    "version": "1.0.0",
+    "description": "Solving the marsrover challenge using javascript",
+    "main": "marsrover.test.js",
+    "scripts": {
+        "test": "jest"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kiyaGu/marsrover_with_javascript.git"
+    },
+    "author": "Kiya Gur.",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/kiyaGu/marsrover_with_javascript/issues"
+    },
+    "homepage": "https://github.com/kiyaGu/marsrover_with_javascript#readme",
+    "dependencies": {
+        "jest": "^20.0.4"
+    }
+}

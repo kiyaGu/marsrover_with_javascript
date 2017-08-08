@@ -1,26 +1,46 @@
+const readline = require('readline');
+const prompt = require('prompt');
+
 function Rover(x, y, direction) {
-    this.x = x;
-    this.y = y;
+    this.xCordinate = x;
+    this.yCordinate = y;
     this.direction = direction;
 }
+
 //to return the current position
 Rover.prototype.currentPosition = function() {
-    return this.x + " " + this.y + " " + this.direction;
+    return this.xCordinate + " " + this.yCordinate + " " + this.direction;
 }
 
 //to move the rover to navigate
 
 Rover.prototype.moveNorth = function() {
-    return ++this.y;
+    return ++this.yCordinate;
 }
 Rover.prototype.moveEast = function() {
-    return ++this.x;
+    return ++this.xCordinate;
 }
 Rover.prototype.moveSouth = function() {
-    return --this.y;
+    return --this.yCordinate;
 }
 Rover.prototype.moveWest = function() {
-    return --this.x;
+    return --this.xCordinate;
+}
+Rover.prototype.moveRover = function() {
+    switch (this.direction) {
+        case "N":
+            this.moveNorth();
+            break;
+        case "S":
+            this.moveSouth();
+            break;
+        case "E":
+            this.moveEast();
+            break;
+        case "W":
+            this.moveWest();
+            break;
+    }
 }
 Rover.prototype.changeDirection = function(newDirection) {
     this.direction = newDirection;
@@ -60,6 +80,45 @@ Rover.prototype.turnRight = function() {
     }
     return this.direction;
 }
+Rover.prototype.executeCommand = function(command) {
+    switch (command.toUpperCase()) {
+        case "M":
+            this.moveRover();
+            break;
+        case "L":
+            this.turnLeft();
+            break;
+        case "R":
+            this.turnRight();
+            break;
+    }
+    return this.currentPosition();
+}
 
+let curentPos = [],
+    commands = [];
+
+var schema = {
+    properties: {
+        curPosition: {
+            message: 'What is the current position of the Rover',
+        },
+        commands: {
+            message: 'What is the navigation command',
+        }
+    }
+};
+let x, y, direction;
+prompt.get(schema, (err, result) => {
+    curentPos = result.curPosition.split(" ");
+    commands = result.commands.split("");
+    x = curentPos[0];
+    y = curentPos[1];
+    direction = curentPos[2];
+    let marsrover = new Rover(x, y, direction);
+    commands.forEach((element) => {
+        marsrover.executeCommand(element);
+    });
+});
 
 module.exports = Rover;

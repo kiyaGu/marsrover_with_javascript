@@ -1,5 +1,5 @@
 const readline = require('readline');
-const prompt = require('prompt');
+const prompt = require('prompt-sync')();
 
 function Rover(x, y, direction) {
     this.xCordinate = x;
@@ -9,7 +9,7 @@ function Rover(x, y, direction) {
 
 //to return the current position
 Rover.prototype.currentPosition = function() {
-    return this.xCordinate + " " + this.yCordinate + " " + this.direction;
+    return "The rover is now at (" + this.xCordinate + "," + this.yCordinate + ") position; facing '" + this.direction + "' direction";
 }
 
 //to move the rover to navigate
@@ -81,7 +81,7 @@ Rover.prototype.turnRight = function() {
     return this.direction;
 }
 Rover.prototype.executeCommand = function(command) {
-    switch (command.toUpperCase()) {
+    switch (command) {
         case "M":
             this.moveRover();
             break;
@@ -98,27 +98,16 @@ Rover.prototype.executeCommand = function(command) {
 let curentPos = [],
     commands = [];
 
-var schema = {
-    properties: {
-        curPosition: {
-            message: 'What is the current position of the Rover',
-        },
-        commands: {
-            message: 'What is the navigation command',
-        }
-    }
-};
+const curPosition = prompt('What is the current position of the Rover : ').split(" ");
+const commandList = prompt('What is the navigation command : ').split("");
 let x, y, direction;
-prompt.get(schema, (err, result) => {
-    curentPos = result.curPosition.split(" ");
-    commands = result.commands.split("");
-    x = curentPos[0];
-    y = curentPos[1];
-    direction = curentPos[2];
-    let marsrover = new Rover(x, y, direction);
-    commands.forEach((element) => {
-        marsrover.executeCommand(element);
-    });
+x = curPosition[0];
+y = curPosition[1];
+direction = curPosition[2].toUpperCase();
+let marsrover = new Rover(x, y, direction);
+commandList.forEach(function(element) {
+    element = element.toUpperCase();
+    marsrover.executeCommand(element);
 });
-
+console.log(marsrover.currentPosition());
 module.exports = Rover;

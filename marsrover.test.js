@@ -1,20 +1,43 @@
-let Rover = require('./marsrover.js');
-
+let Plateau = require('./plateau');
+let Rover = require('./marsrover');
 
 describe('Marsrover should', () => {
     let marsrover = {};
     beforeEach(() => {
+        plateau = new Plateau(5, 5);
         marsrover = new Rover(1, 2, "E");
     });
+
+    function multipleMove(times) {
+        for (var i = 0; i < times; i++) {
+            marsrover.moveRover()
+        }
+    }
     test('create an object', () => {
-        // marsrover = new Rover();
-        expect(marsrover.x).toBe(1);
+        expect(marsrover.xCoordinate).toBe(1);
+    });
+    test('return the top coordinates of the plateau', () => {
+        let topCoordinatesOfPlateau = plateau.topCoordinatesOfPlateau();
+        expect(topCoordinatesOfPlateau).toBe('(5,5)');
     });
     test('return the current position', () => {
         let currentPosition = marsrover.currentPosition()
-        expect(currentPosition).toBe('1 2 E');
+        expect(currentPosition).toBe("The rover is now at (1,2) position; facing 'E' direction");
     });
-
+    test('validate the move', () => {
+        // the move should be done if the new position is within the constructed plateau
+        marsrover.turnRight();
+        //current position = '1 2 S'
+        marsrover.moveRover();
+        //current position = '1 1 S'
+        marsrover.moveRover();
+        //current position = '1 0 S'
+        marsrover.moveRover();
+        //current position = '1 -1 S'
+        //this move should not be carried out as it is outside of the plateau. 
+        //the Rover should stay at '1 0 S'
+        expect(marsrover.currentPosition()).toBe("The rover is now at (1,0) position; facing 'S' direction");
+    });
     //move - navigate
     test('move north', () => {
         expect(marsrover.moveNorth()).toBe(3);
@@ -26,10 +49,9 @@ describe('Marsrover should', () => {
         expect(marsrover.moveSouth()).toBe(1);
     })
     test('move west', () => {
-        expect(marsrover.moveWest()).toBe(0);
-    })
-
-    // to change the direction of the rover left / right
+            expect(marsrover.moveWest()).toBe(0);
+        })
+        // to change the direction of the rover left / right
     test('turn left while the rover is facing east', () => {
         expect(marsrover.turnLeft()).toBe("N");
     });
@@ -60,11 +82,10 @@ describe('Marsrover should', () => {
         marsrover.changeDirection("S");
         expect(marsrover.turnRight()).toBe("W");
     })
-    test.only('handle multiple command', () => {
-        //current position = '1 2 E' 
-        marsrover.moveEast();
+    test('handle multiple command', () => {
+        //current position = '1 2 E'
+        multipleMove(2);
         //current position = '2 2 E'
-        marsrover.moveEast();
         //current position = '3 2 E'
         marsrover.turnRight();
         //current position = '3 2 S'
@@ -72,17 +93,17 @@ describe('Marsrover should', () => {
         //current position = '3 1 S'
         marsrover.turnRight();
         //current position = '3 1 W'
-        marsrover.moveWest();
+        marsrover.moveRover();
         //current position = '2 1 W'
         marsrover.turnRight();
         //current position = '2 1 N'
-        marsrover.moveNorth();
+        marsrover.moveRover();
         //current position = '2 2 N'
         marsrover.turnLeft();
         //current position = '2 2 W'
-        marsrover.moveWest();
+        marsrover.moveRover();
         //current position = '1 2 W'
-        expect(marsrover.currentPosition()).toBe("1 2 W")
+        expect(marsrover.currentPosition()).toBe("The rover is now at (1,2) position; facing 'W' direction");
 
     });
 

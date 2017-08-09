@@ -1,30 +1,53 @@
 const readline = require('readline');
 const prompt = require('prompt-sync')();
+const Plateau = require('./plateau');
 
 function Rover(x, y, direction) {
-    this.xCordinate = x;
-    this.yCordinate = y;
+    this.xCoordinate = x;
+    this.yCoordinate = y;
     this.direction = direction;
 }
 
 //to return the current position
 Rover.prototype.currentPosition = function() {
-    return "The rover is now at (" + this.xCordinate + "," + this.yCordinate + ") position; facing '" + this.direction + "' direction";
+    return "The rover is now at (" + this.xCoordinate + "," + this.yCoordinate + ") position; facing '" + this.direction + "' direction";
 }
-
-//to move the rover to navigate
-
+Rover.prototype.isMoveValid = function() {
+        let plateauTopXCoordinate = plateau.getTopXCoordinate();
+        let plateauTopYCoordinate = plateau.getTopYCoordinate();
+        let newXCoordinate = this.xCoordinate;
+        let newYCoordinate = this.yCoordinate;
+        return ((newXCoordinate >= 0 && newXCoordinate <= plateauTopXCoordinate) &&
+            (newYCoordinate >= 0 && newYCoordinate <= plateauTopYCoordinate));
+    }
+    //to move the rover to navigate
 Rover.prototype.moveNorth = function() {
-    return ++this.yCordinate;
+    ++this.yCoordinate;
+    if (!(this.isMoveValid())) {
+        --this.yCoordinate;
+    }
+    return this.yCoordinate;
 }
 Rover.prototype.moveEast = function() {
-    return ++this.xCordinate;
+    ++this.xCoordinate;
+    if (!(this.isMoveValid())) {
+        --this.xCoordinate;
+    }
+    return this.xCoordinate;
 }
 Rover.prototype.moveSouth = function() {
-    return --this.yCordinate;
+    --this.yCoordinate;
+    if (!(this.isMoveValid())) {
+        ++this.yCoordinate;
+    }
+    return this.yCoordinate;
 }
 Rover.prototype.moveWest = function() {
-    return --this.xCordinate;
+    --this.xCoordinate;
+    if (!(this.isMoveValid())) {
+        ++this.xCoordinate;
+    }
+    return this.xCoordinate;
 }
 Rover.prototype.moveRover = function() {
     switch (this.direction) {
@@ -81,33 +104,35 @@ Rover.prototype.turnRight = function() {
     return this.direction;
 }
 Rover.prototype.executeCommand = function(command) {
-    switch (command) {
-        case "M":
-            this.moveRover();
-            break;
-        case "L":
-            this.turnLeft();
-            break;
-        case "R":
-            this.turnRight();
-            break;
+        switch (command) {
+            case "M":
+                this.moveRover();
+                break;
+            case "L":
+                this.turnLeft();
+                break;
+            case "R":
+                this.turnRight();
+                break;
+        }
+        return this.currentPosition();
     }
-    return this.currentPosition();
-}
-
-let curentPos = [],
-    commands = [];
-
-const curPosition = prompt('What is the current position of the Rover : ').split(" ");
-const commandList = prompt('What is the navigation command : ').split("");
-let x, y, direction;
-x = curPosition[0];
-y = curPosition[1];
-direction = curPosition[2].toUpperCase();
-let marsrover = new Rover(x, y, direction);
-commandList.forEach(function(element) {
-    element = element.toUpperCase();
-    marsrover.executeCommand(element);
-});
-console.log(marsrover.currentPosition());
+    /*
+    // to run the marsrover by accepting input from user uncomment this section and
+    // run 'node marsrover'
+    const pla = prompt('What is the top border/coordinate of the Plateau : ').split(" ");
+    const curPosition = prompt('What is the current position of the Rover : ').split(" ");
+    const commandList = prompt('What is the navigation command : ').split("");
+    let x, y, direction;
+    plateau = new Plateau(pla[0], pla[1]);
+    x = curPosition[0];
+    y = curPosition[1];
+    direction = curPosition[2].toUpperCase();
+    let marsrover = new Rover(x, y, direction);
+    commandList.forEach(function(element) {
+        element = element.toUpperCase();
+        marsrover.executeCommand(element);
+    });
+    console.log(marsrover.currentPosition());
+    */
 module.exports = Rover;

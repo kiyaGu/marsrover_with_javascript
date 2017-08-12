@@ -1,3 +1,12 @@
+/** 
+ directions : E - > East, N -> North and so on
+ commands : M - move the rover one step forward in the direction the Rover
+            is facing at the time of the command
+            R - turn the Rover to the right to make it face another direction
+            the turn is 90 degree
+            L - turn the Rover to the left 
+*/
+
 const readline = require('readline');
 const prompt = require('prompt-sync')();
 const Plateau = require('./plateau');
@@ -10,8 +19,9 @@ function Rover(x, y, direction) {
 
 //to return the current position
 Rover.prototype.currentPosition = function() {
-    return "The rover is now at (" + this.xCoordinate + "," + this.yCoordinate + ") position; facing '" + this.direction + "' direction";
-}
+        return "The rover is now at (" + this.xCoordinate + "," + this.yCoordinate + ") position; facing '" + this.direction + "' direction";
+    }
+    //to check if the current move is within the given/constructed plateau
 Rover.prototype.isMoveValid = function() {
         let plateauTopXCoordinate = plateau.getTopXCoordinate();
         let plateauTopYCoordinate = plateau.getTopYCoordinate();
@@ -23,7 +33,7 @@ Rover.prototype.isMoveValid = function() {
     //to move the rover to navigate
 Rover.prototype.moveNorth = function() {
     ++this.yCoordinate;
-    if (!(this.isMoveValid())) {
+    if (!(this.isMoveValid())) { //if the move is not allowed
         --this.yCoordinate;
     }
     return this.yCoordinate;

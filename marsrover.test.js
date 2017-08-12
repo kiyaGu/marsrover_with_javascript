@@ -5,7 +5,10 @@ describe('Marsrover should', () => {
     let marsrover = {};
     beforeEach(() => {
         plateau = new Plateau(5, 5);
+        // will construct a plateau that ranges between (0,0) and (5,5) and
+        //only this region will be navigated by the rover
         marsrover = new Rover(1, 2, "E");
+        //to create a Rover object that is currently standing at (1,2) and facing East
     });
 
     function multipleMove(times) {
@@ -39,16 +42,17 @@ describe('Marsrover should', () => {
         expect(marsrover.currentPosition()).toBe("The rover is now at (1,0) position; facing 'S' direction");
     });
     //move - navigate
-    test('move north', () => {
+    //current position (1,2) and direction East
+    test('move north', () => { //increase Y
         expect(marsrover.moveNorth()).toBe(3);
     })
-    test('move east', () => {
+    test('move east', () => { //increase X
         expect(marsrover.moveEast()).toBe(2);
     })
-    test('move south', () => {
+    test('move south', () => { //decrease Y
         expect(marsrover.moveSouth()).toBe(1);
     })
-    test('move west', () => {
+    test('move west', () => { //decrease X
             expect(marsrover.moveWest()).toBe(0);
         })
         // to change the direction of the rover left / right

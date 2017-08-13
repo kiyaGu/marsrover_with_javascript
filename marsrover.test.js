@@ -31,12 +31,13 @@ describe('Marsrover should', () => {
         // the move should be done if the new position is within the constructed plateau
         marsrover.turnRight();
         //current position = '1 2 S'
-        marsrover.moveRover();
-        //current position = '1 1 S'
-        marsrover.moveRover();
-        //current position = '1 0 S'
-        marsrover.moveRover();
-        //current position = '1 -1 S'
+        multipleMove(3);
+        /* == marsrover.moveRover();
+               current position = '1 1 S' 
+             marsrover.moveRover();
+                current position = '1 0 S'
+              marsrover.moveRover();
+                current position = '1 -1 S' */
         //this move should not be carried out as it is outside of the plateau. 
         //the Rover should stay at '1 0 S'
         expect(marsrover.currentPosition()).toBe("The rover is now at (1,0) position; facing 'S' direction");

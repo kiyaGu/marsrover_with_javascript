@@ -15,7 +15,7 @@ Plateau.prototype.getTopXCoordinate = function() {
 Plateau.prototype.getTopYCoordinate = function() {
     return this.topYCoordinate;
 }
-Plateau.prototype.containsCoordinates = function(x) {
-    return false;
+Plateau.prototype.containsCoordinates = function(x, y) {
+    return x <= this.topXCoordinate && y <= this.topYCoordinate;
 }
 module.exports = Plateau;

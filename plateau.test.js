@@ -8,6 +8,14 @@ describe('The plateau should', () => {
     });
     test('know about its boundaries', () => {
         let plateau = new Plateau(4, 4);
+        expect(plateau.containsCoordinates(3, 4)).toBe(true);
+    })
+    test('know about its east boundary', () => {
+        let plateau = new Plateau(4, 4);
         expect(plateau.containsCoordinates(5, 4)).toBe(false);
+    })
+    test('know about its north boundary', () => {
+        let plateau = new Plateau(4, 4);
+        expect(plateau.containsCoordinates(3, 5)).toBe(false);
     })
 })

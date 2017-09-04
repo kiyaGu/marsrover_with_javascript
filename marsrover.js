@@ -11,10 +11,12 @@ const readline = require('readline');
 const prompt = require('prompt-sync')();
 const Plateau = require('./plateau');
 
-function Rover(x, y, direction) {
+
+function Rover(x, y, direction, plateau) {
     this.xCoordinate = x;
     this.yCoordinate = y;
     this.direction = direction;
+    this.plateau = plateau;
 }
 
 //to return the current position
@@ -23,8 +25,8 @@ Rover.prototype.currentPosition = function() {
     }
     //to check if the current move is within the given/constructed plateau
 Rover.prototype.isMoveValid = function() {
-        let plateauTopXCoordinate = plateau.getTopXCoordinate();
-        let plateauTopYCoordinate = plateau.getTopYCoordinate();
+        let plateauTopXCoordinate = this.plateau.getTopXCoordinate();
+        let plateauTopYCoordinate = this.plateau.getTopYCoordinate();
         let newXCoordinate = this.xCoordinate;
         let newYCoordinate = this.yCoordinate;
         return ((newXCoordinate >= 0 && newXCoordinate <= plateauTopXCoordinate) &&

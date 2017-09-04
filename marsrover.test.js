@@ -3,11 +3,12 @@ let Rover = require('./marsrover');
 
 describe('Marsrover should', () => {
     let marsrover = {};
+    let plateau;
     beforeEach(() => {
         plateau = new Plateau(5, 5);
         // will construct a plateau that ranges between (0,0) and (5,5) and
         //only this region will be navigated by the rover
-        marsrover = new Rover(1, 2, "E");
+        marsrover = new Rover(1, 2, "E", plateau);
         //to create a Rover object that is currently standing at (1,2) and facing East
     });
 
@@ -19,32 +20,20 @@ describe('Marsrover should', () => {
     test('create an object', () => {
         expect(marsrover.xCoordinate).toBe(1);
     });
-    test('return the top coordinates of the plateau', () => {
-        let topCoordinatesOfPlateau = plateau.topCoordinatesOfPlateau();
-        expect(topCoordinatesOfPlateau).toBe('(5,5)');
-    });
     test('return the current position', () => {
         let currentPosition = marsrover.currentPosition()
         expect(currentPosition).toBe("The rover is now at (1,2) position; facing 'E' direction");
     });
-    test('validate the move', () => {
-        // the move should be done if the new position is within the constructed plateau
-        marsrover.turnRight();
-        //current position = '1 2 S'
-        multipleMove(3);
-        /* == marsrover.moveRover();
-               current position = '1 1 S' 
-             marsrover.moveRover();
-                current position = '1 0 S'
-              marsrover.moveRover();
-                current position = '1 -1 S' */
-        //this move should not be carried out as it is outside of the plateau. 
-        //the Rover should stay at '1 0 S'
-        expect(marsrover.currentPosition()).toBe("The rover is now at (1,0) position; facing 'S' direction");
+    test('does not move outside of the plateau', () => {
+        let rover = new Rover(5, 2, "E", new Plateau(5, 8));
+        rover.moveRover();
+        expect(rover.currentPosition()).toBe("The rover is now at (5,2) position; facing 'E' direction");
     });
+
     //move - navigate
     //current position (1,2) and direction East
     test('move north', () => { //increase Y
+
         expect(marsrover.moveNorth()).toBe(3);
     })
     test('move east', () => { //increase X
@@ -111,5 +100,11 @@ describe('Marsrover should', () => {
         expect(marsrover.currentPosition()).toBe("The rover is now at (1,2) position; facing 'W' direction");
 
     });
+
+    test('only change the position of a single rover', () => {
+        marsrover2 = new Rover(1, 2, "E");
+        marsrover.moveRover();
+        expect(marsrover2.currentPosition()).toBe("The rover is now at (1,2) position; facing 'E' direction")
+    })
 
 });

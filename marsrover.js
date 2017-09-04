@@ -25,20 +25,16 @@ Rover.prototype.currentPosition = function() {
     }
     //to check if the current move is within the given/constructed plateau
 Rover.prototype.isMoveValid = function() {
-        let plateauTopXCoordinate = this.plateau.getTopXCoordinate();
-        let plateauTopYCoordinate = this.plateau.getTopYCoordinate();
-        let newXCoordinate = this.xCoordinate;
-        let newYCoordinate = this.yCoordinate;
-        return ((newXCoordinate >= 0 && newXCoordinate <= plateauTopXCoordinate) &&
-            (newYCoordinate >= 0 && newYCoordinate <= plateauTopYCoordinate));
+        return this.plateau.containsCoordinates(this.xCoordinate, this.yCoordinate);
     }
     //to move the rover to navigate
 Rover.prototype.moveNorth = function() {
-    ++this.yCoordinate;
-    if (!(this.isMoveValid())) { //if the move is not allowed
-        --this.yCoordinate;
+    const newY = this.yCoordinate + 1;
+    const newX = this.xCoordinate;
+    const isMoveValid = this.plateau.containsCoordinates(newX, newY);
+    if (isMoveValid) { //if the move is not allowed
+        this.yCoordinate = newY;
     }
-    return this.yCoordinate;
 }
 Rover.prototype.moveEast = function() {
     ++this.xCoordinate;

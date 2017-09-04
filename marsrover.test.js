@@ -33,8 +33,8 @@ describe('Marsrover should', () => {
     //move - navigate
     //current position (1,2) and direction East
     test('move north', () => { //increase Y
-
-        expect(marsrover.moveNorth()).toBe(3);
+        marsrover.moveNorth()
+        expect(marsrover.currentPosition()).toEqual({ x: 1, y: 3 });
     })
     test('move east', () => { //increase X
         expect(marsrover.moveEast()).toBe(2);

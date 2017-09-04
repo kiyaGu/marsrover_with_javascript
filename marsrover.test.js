@@ -22,12 +22,12 @@ describe('Marsrover should', () => {
     });
     test('return the current position', () => {
         let currentPosition = marsrover.currentPosition()
-        expect(currentPosition).toBe("The rover is now at (1,2) position; facing 'E' direction");
+        expect(currentPosition).toEqual({ x: 1, y: 2 });
     });
     test('does not move outside of the plateau', () => {
         let rover = new Rover(5, 2, "E", new Plateau(5, 8));
         rover.moveRover();
-        expect(rover.currentPosition()).toBe("The rover is now at (5,2) position; facing 'E' direction");
+        expect(rover.currentPosition()).toEqual({ x: 5, y: 2 });
     });
 
     //move - navigate
@@ -97,14 +97,14 @@ describe('Marsrover should', () => {
         //current position = '2 2 W'
         marsrover.moveRover();
         //current position = '1 2 W'
-        expect(marsrover.currentPosition()).toBe("The rover is now at (1,2) position; facing 'W' direction");
+        expect(marsrover.currentPosition()).toEqual({ x: 1, y: 2 });
 
     });
 
     test('only change the position of a single rover', () => {
         marsrover2 = new Rover(1, 2, "E");
         marsrover.moveRover();
-        expect(marsrover2.currentPosition()).toBe("The rover is now at (1,2) position; facing 'E' direction")
+        expect(marsrover2.currentPosition()).toEqual({ x: 1, y: 2 })
     })
 
 });

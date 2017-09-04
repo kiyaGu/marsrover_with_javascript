@@ -21,7 +21,7 @@ function Rover(x, y, direction, plateau) {
 
 //to return the current position
 Rover.prototype.currentPosition = function() {
-        return "The rover is now at (" + this.xCoordinate + "," + this.yCoordinate + ") position; facing '" + this.direction + "' direction";
+        return { x: this.xCoordinate, y: this.yCoordinate };
     }
     //to check if the current move is within the given/constructed plateau
 Rover.prototype.isMoveValid = function() {

@@ -22,4 +22,8 @@ describe('The plateau should', () => {
         let plateau = new Plateau(4, 4);
         expect(plateau.containsCoordinates(3, -1)).toBe(false);
     })
+    test('know about its west boundary', () => {
+        let plateau = new Plateau(4, 4);
+        expect(plateau.containsCoordinates(-1, 3)).toBe(false);
+    })
 })

@@ -17,7 +17,7 @@ describe('Marsrover should', () => {
             marsrover.moveRover()
         }
     }
-    test('create an object', () => {
+    test('create a rover object', () => {
         expect(marsrover.xCoordinate).toBe(1);
     });
     test('return the current position', () => {
@@ -33,17 +33,24 @@ describe('Marsrover should', () => {
     //move - navigate
     //current position (1,2) and direction East
     test('move north', () => { //increase Y
-        marsrover.moveNorth()
+        marsrover.changeDirection("N");
+        marsrover.moveRover();
         expect(marsrover.currentPosition()).toEqual({ x: 1, y: 3 });
     })
     test('move east', () => { //increase X
-        expect(marsrover.moveEast()).toBe(2);
+        marsrover.changeDirection("E");
+        marsrover.moveRover();
+        expect(marsrover.currentPosition()).toEqual({ x: 2, y: 2 });
     })
     test('move south', () => { //decrease Y
-        expect(marsrover.moveSouth()).toBe(1);
+        marsrover.changeDirection("S");
+        marsrover.moveRover();
+        expect(marsrover.currentPosition()).toEqual({ x: 1, y: 1 });
     })
     test('move west', () => { //decrease X
-            expect(marsrover.moveWest()).toBe(0);
+            marsrover.changeDirection("W");
+            marsrover.moveRover();
+            expect(marsrover.currentPosition()).toEqual({ x: 0, y: 2 });
         })
         // to change the direction of the rover left / right
     test('turn left while the rover is facing east', () => {
@@ -83,7 +90,8 @@ describe('Marsrover should', () => {
         //current position = '3 2 E'
         marsrover.turnRight();
         //current position = '3 2 S'
-        marsrover.moveSouth();
+        marsrover.changeDirection("S");
+        marsrover.moveRover();
         //current position = '3 1 S'
         marsrover.turnRight();
         //current position = '3 1 W'

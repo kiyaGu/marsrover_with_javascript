@@ -25,51 +25,44 @@ Rover.prototype.currentPosition = function() {
     }
     //to check if the current move is within the given/constructed plateau
 Rover.prototype.isMoveValid = function() {
-        return this.plateau.containsCoordinates(this.xCoordinate, this.yCoordinate);
+    return this.plateau.containsCoordinates(this.xCoordinate, this.yCoordinate);
+}
+Rover.prototype.makeTheMove = function(dx, dy) {
+        const newY = this.yCoordinate + dy;
+        const newX = this.xCoordinate + dx;
+        const isMoveValid = this.plateau.containsCoordinates(newX, newY);
+        if (isMoveValid) { //if the move is allowed
+            this.xCoordinate = newX;
+            this.yCoordinate = newY;
+        }
     }
     //to move the rover to navigate
-Rover.prototype.moveNorth = function() {
-    const newY = this.yCoordinate + 1;
-    const newX = this.xCoordinate;
-    const isMoveValid = this.plateau.containsCoordinates(newX, newY);
-    if (isMoveValid) { //if the move is not allowed
-        this.yCoordinate = newY;
-    }
-}
-Rover.prototype.moveEast = function() {
-    ++this.xCoordinate;
-    if (!(this.isMoveValid())) {
-        --this.xCoordinate;
-    }
-    return this.xCoordinate;
-}
-Rover.prototype.moveSouth = function() {
-    --this.yCoordinate;
-    if (!(this.isMoveValid())) {
-        ++this.yCoordinate;
-    }
-    return this.yCoordinate;
-}
-Rover.prototype.moveWest = function() {
-    --this.xCoordinate;
-    if (!(this.isMoveValid())) {
-        ++this.xCoordinate;
-    }
-    return this.xCoordinate;
-}
+    // Rover.prototype.moveNorth = function() {
+    //     this.makeTheMove(0, 1);
+    // }
+    // Rover.prototype.moveEast = function() {
+    //     this.makeTheMove(1, 0);
+    // }
+    // Rover.prototype.moveSouth = function() {
+    //     this.makeTheMove(0, -1);
+    // }
+    // Rover.prototype.moveWest = function() {
+    //     this.makeTheMove(-1, 0);
+    // }
+
 Rover.prototype.moveRover = function() {
     switch (this.direction) {
         case "N":
-            this.moveNorth();
+            this.makeTheMove(0, 1);
             break;
         case "S":
-            this.moveSouth();
+            this.makeTheMove(0, -1);
             break;
         case "E":
-            this.moveEast();
+            this.makeTheMove(1, 0);
             break;
         case "W":
-            this.moveWest();
+            this.makeTheMove(-1, 0);
             break;
     }
 }

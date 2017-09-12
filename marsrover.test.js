@@ -24,6 +24,10 @@ describe('Marsrover should', () => {
         let currentPosition = marsrover.currentPosition()
         expect(currentPosition).toEqual({ x: 1, y: 2 });
     });
+    test('return the current direction', () => {
+        let currentDirection = marsrover.currentDirection()
+        expect(currentDirection).toBe("E");
+    });
     test('does not move outside of the plateau', () => {
         let rover = new Rover(5, 2, "E", new Plateau(5, 8));
         rover.moveRover();

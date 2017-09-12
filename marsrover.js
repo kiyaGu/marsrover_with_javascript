@@ -21,7 +21,10 @@ function Rover(x, y, direction, plateau) {
 
 //to return the current position
 Rover.prototype.currentPosition = function() {
-        return { x: this.xCoordinate, y: this.yCoordinate };
+    return { x: this.xCoordinate, y: this.yCoordinate };
+}
+Rover.prototype.currentDirection = function() {
+        return this.direction;
     }
     //to check if the current move is within the given/constructed plateau
 Rover.prototype.isMoveValid = function() {
@@ -91,35 +94,35 @@ Rover.prototype.turnRight = function() {
     return this.direction;
 }
 Rover.prototype.executeCommand = function(command) {
-        switch (command) {
-            case "M":
-                this.moveRover();
-                break;
-            case "L":
-                this.turnLeft();
-                break;
-            case "R":
-                this.turnRight();
-                break;
-        }
-        return this.currentPosition();
+    switch (command) {
+        case "M":
+            this.moveRover();
+            break;
+        case "L":
+            this.turnLeft();
+            break;
+        case "R":
+            this.turnRight();
+            break;
     }
-    /*
-    // to run the marsrover by accepting input from user uncomment this section and
-    // run 'node marsrover'
-    const pla = prompt('What is the top border/coordinate of the Plateau : ').split(" ");
-    const curPosition = prompt('What is the current position of the Rover : ').split(" ");
-    const commandList = prompt('What is the navigation command : ').split("");
-    let x, y, direction;
-    plateau = new Plateau(pla[0], pla[1]);
-    x = curPosition[0];
-    y = curPosition[1];
-    direction = curPosition[2].toUpperCase();
-    let marsrover = new Rover(x, y, direction);
-    commandList.forEach(function(element) {
-        element = element.toUpperCase();
-        marsrover.executeCommand(element);
-    });
-    console.log(marsrover.currentPosition());
-    */
+    return this.currentPosition();
+}
+
+// to run the marsrover by accepting input from user uncomment this section and
+// run 'node marsrover'
+// const pla = prompt('What is the top border/coordinate of the Plateau : ').split(" ");
+// const curPosition = prompt('What is the current position of the Rover : ').split(" ");
+// const commandList = prompt('What is the navigation command : ').split("");
+// let x, y, direction;
+// plateau = new Plateau(pla[0], pla[1]);
+// x = curPosition[0];
+// y = curPosition[1];
+// direction = curPosition[2].toUpperCase();
+// let marsrover = new Rover(x, y, direction, plateau);
+// commandList.forEach(function(element) {
+//     element = element.toUpperCase();
+//     marsrover.executeCommand(element);
+// });
+// console.log(marsrover.currentPosition());
+
 module.exports = Rover;

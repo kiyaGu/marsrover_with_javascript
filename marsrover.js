@@ -61,16 +61,16 @@ Rover.prototype.changeDirection = function(newDirection) {
 Rover.prototype.turnLeft = function() {
     switch (this.direction) {
         case "E":
-            this.direction = "N";
+            this.changeDirection("N");
             break;
         case "N":
-            this.direction = "W";
+            this.changeDirection("W");
             break;
         case "W":
-            this.direction = "S";
+            this.changeDirection("S");
             break;
         case "S":
-            this.direction = "E";
+            this.changeDirection("E");
             break;
     }
     return this.direction;
@@ -79,16 +79,16 @@ Rover.prototype.turnRight = function() {
     let direction = this.direction;
     switch (direction) {
         case "E":
-            this.direction = "S";
+            this.changeDirection("S");
             break;
         case "N":
-            this.direction = "E";
+            this.changeDirection("E");
             break;
         case "W":
-            this.direction = "N";
+            this.changeDirection("N");
             break;
         case "S":
-            this.direction = "W";
+            this.changeDirection("W");
             break;
     }
     return this.direction;
@@ -110,19 +110,21 @@ Rover.prototype.executeCommand = function(command) {
 
 // to run the marsrover by accepting input from user uncomment this section and
 // run 'node marsrover'
-// const pla = prompt('What is the top border/coordinate of the Plateau : ').split(" ");
+//Assumption: no error handling as the user is assumed will put proper input
+// console.log("Please, write the input by separating them with whitespace e.g. '1 2 E'");
+// let pla = prompt('What is the top border/coordinate of the Plateau : ').split(" ");
 // const curPosition = prompt('What is the current position of the Rover : ').split(" ");
 // const commandList = prompt('What is the navigation command : ').split("");
 // let x, y, direction;
 // plateau = new Plateau(pla[0], pla[1]);
-// x = curPosition[0];
-// y = curPosition[1];
+// x = parseInt(curPosition[0]);
+// y = parseInt(curPosition[1]);
 // direction = curPosition[2].toUpperCase();
 // let marsrover = new Rover(x, y, direction, plateau);
 // commandList.forEach(function(element) {
 //     element = element.toUpperCase();
 //     marsrover.executeCommand(element);
 // });
-// console.log(marsrover.currentPosition());
+// console.log(marsrover.currentPosition(), marsrover.currentDirection());
 
 module.exports = Rover;
